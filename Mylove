@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+color: #fff;
+margin-right: 10px;
+box-shadow: 0 8px 20px rgba(34,197,94,0.4);
+}
+#yesBtn:hover {
+transform: scale(1.05);
+}
+#noBtn {
+background: #ef4444;
+color: #fff;
+position: absolute;
+right: 0;
+box-shadow: 0 8px 20px rgba(239,68,68,0.4);
+}
+.hidden { display: none; }
+.success {
+font-size: 1.3rem;
+color: #16a34a;
+}
+</style>
+</head>
+<body>
+<div class="card">
+<h1> Will you be my Valentine Sweeeetuuuuuu? 💖</h1>
+<p>You make my days brighter just by being you.</p>
+
+
+<div class="buttons" id="buttons">
+<button id="yesBtn">Yes 💕</button>
+<button id="noBtn">No 🙈</button>
+</div>
+
+
+<div id="result" class="hidden success">
+Yayyy! 💘 I knew you'd say yes! 🥰
+</div>
+</div>
+
+
+<script>
+const noBtn = document.getElementById('noBtn');
+const yesBtn = document.getElementById('yesBtn');
+const buttons = document.getElementById('buttons');
+const result = document.getElementById('result');
+
+
+noBtn.addEventListener('mouseenter', () => {
+const maxX = buttons.clientWidth - noBtn.clientWidth;
+const maxY = buttons.clientHeight - noBtn.clientHeight;
+const x = Math.random() * maxX;
+const y = Math.random() * maxY;
+noBtn.style.left = x + 'px';
+noBtn.style.top = y + 'px';
+});
+
+
+yesBtn.addEventListener('click', () => {
+buttons.classList.add('hidden');
+result.classList.remove('hidden');
+});
+</script>
+</body>
+</html>
