@@ -26,6 +26,7 @@
       font-size: 20px;
       animation: floatUp 6s linear infinite;
       opacity: 0.7;
+      pointer-events: none;
     }
 
     @keyframes floatUp {
@@ -55,9 +56,16 @@
       margin-bottom: 30px;
     }
 
+    /* IMPORTANT FIX AREA */
     .buttons {
       position: relative;
-      height: 60px;
+      height: 70px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 14px;
+      overflow: hidden; /* prevents hanging */
     }
 
     button {
@@ -67,13 +75,14 @@
       border-radius: 999px;
       cursor: pointer;
       transition: transform 0.2s ease;
+      white-space: nowrap;
     }
 
     #yesBtn {
       background: #22c55e;
       color: #fff;
-      margin-right: 10px;
       box-shadow: 0 8px 20px rgba(34,197,94,0.4);
+      z-index: 2;
     }
 
     #yesBtn:hover {
@@ -83,9 +92,10 @@
     #noBtn {
       background: #ef4444;
       color: #fff;
-      position: absolute;
-      right: 0;
+      position: absolute; /* still playful */
+      right: 10px;
       box-shadow: 0 8px 20px rgba(239,68,68,0.4);
+      z-index: 1;
     }
 
     .hidden { display: none; }
@@ -105,7 +115,7 @@
 
 <body>
   <div class="card">
-    <h1>Will you be my valentine sweetuu babee? 💖</h1>
+    <h1>Will you be my valentine sweetu babee? 💖</h1>
     <p>You make my days brighter just by being you.</p>
 
     <div class="buttons" id="buttons">
@@ -127,24 +137,29 @@
     const noTexts = ['No 🙈', 'Are you sure? 🥺', 'Think again 😜', 'Last chance 💔'];
     let noCount = 0;
 
-    // No button runs away + changes text
+    // FIXED runaway logic (stays inside container)
     noBtn.addEventListener('mouseenter', () => {
-      const maxX = buttons.clientWidth - noBtn.clientWidth;
-      const maxY = buttons.clientHeight - noBtn.clientHeight;
-      noBtn.style.left = Math.random() * maxX + 'px';
-      noBtn.style.top = Math.random() * maxY + 'px';
+      const btnWidth = noBtn.offsetWidth;
+      const btnHeight = noBtn.offsetHeight;
+      const areaWidth = buttons.clientWidth - btnWidth;
+      const areaHeight = buttons.clientHeight - btnHeight;
+
+      const x = Math.max(0, Math.random() * areaWidth);
+      const y = Math.max(0, Math.random() * areaHeight);
+
+      noBtn.style.left = x + 'px';
+      noBtn.style.top = y + 'px';
+
       noBtn.textContent = noTexts[noCount % noTexts.length];
       noCount++;
     });
 
-    // Yes click celebration
     yesBtn.addEventListener('click', () => {
       buttons.classList.add('hidden');
       result.classList.remove('hidden');
       launchHearts();
     });
 
-    // Heart burst
     function launchHearts() {
       for (let i = 0; i < 25; i++) {
         const heart = document.createElement('div');
@@ -157,7 +172,6 @@
       }
     }
 
-    // Floating hearts background
     setInterval(() => {
       const heart = document.createElement('div');
       heart.className = 'heart';
