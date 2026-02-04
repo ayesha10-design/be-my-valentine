@@ -146,39 +146,15 @@
   </div>
 
   <!-- Music (plays after YES) -->
-  <audio id="loveSong" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+  
 
   <script>
     const noBtn = document.getElementById('noBtn');
     const yesBtn = document.getElementById('yesBtn');
     const buttons = document.getElementById('buttons');
     const result = document.getElementById('result');
-    const song = document.getElementById('loveSong');
-
-    const noTexts = [
-      'No 🙈',
-      'Are you sure? 🥺',
-      'Think again 😜',
-      'Last chance 💔',
-      'Okay stop 😭'
-    ];
-    let noCount = 0;
-
-    noBtn.addEventListener('mouseenter', () => {
-      const maxX = buttons.clientWidth - noBtn.clientWidth;
-      const maxY = buttons.clientHeight - noBtn.clientHeight;
-      const x = Math.random() * maxX;
-      const y = Math.random() * maxY;
-      noBtn.style.left = x + 'px';
-      noBtn.style.top = y + 'px';
-      noBtn.textContent = noTexts[noCount % noTexts.length];
-      noCount++;
-    });
-
-    yesBtn.addEventListener('click', () => {
-      buttons.classList.add('hidden');
+    buttons.classList.add('hidden');
       result.classList.remove('hidden');
-      song.play();
       launchHearts();
     });
 
